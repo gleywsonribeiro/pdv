@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <p:tooltip value="Usar um endereço diferente para a entrega" for="usaEndCliente"/>
+    <p:commandButton process="@this" id="usaEndCliente" icon="fa fa-copy" style="margin-left: 5px" update="entrega" action="#{pedidoController.ajustarEndereco()}" disabled="#{pedidoController.pedido.emitido}"/>
+
+    <h:panelGrid id="entrega" columns="2">
+
+        <h:panelGroup style="float: left">
+            <h:panelGrid style="float: left">
+                <p:outputLabel value="Data da entrega" for="dataEntrega"/>
+                <p:calendar id="dataEntrega" size="10" pattern="dd/MM/yyyy" locale="pt" disabled="#{pedidoController.pedido.emitido}"
+                            value="#{pedidoController.pedido.dataEntrega}" required="true"/>
+            </h:panelGrid>
+            <h:panelGrid style="float: left">
+                <p:outputLabel value="Logradoutro" for="entregaLogradouro"/>
+                <p:inputText id="entregaLogradouro" size="50" value="#{pedidoController.pedido.enderecoEntrega.logradouro}"
+                            converter="#{upperCaseConverter}" disabled="#{pedidoController.pedido.emitido}" required="true"/>
+            </h:panelGrid>
+            <h:panelGrid style="float: left">
+                <p:outputLabel value="Número" for="entregaNumero" />
+                <p:inputText id="entregaNumero" size="5" converter="#{upperCaseConverter}" value="#{pedidoController.pedido.enderecoEntrega.numero}" required="true" disabled="#{pedidoController.pedido.emitido}"/>
+            </h:panelGrid>
+
+            <h:panelGrid style="clear: left; float: left">
+                <p:outputLabel value="Complemento" for="entregaComplemento"/>
+                <p:inputText id="entregaComplemento" size="80" converter="#{upperCaseConverter}" value="#{pedidoController.pedido.enderecoEntrega.complemento}" disabled="#{pedidoController.pedido.emitido}"/>
+            </h:panelGrid>
+            <h:panelGrid style="clear: left; float: left">
+                <p:outputLabel value="Estado" for="estado"/>
+                <p:selectOneMenu id="estado" style="width: 100px" value="#{pedidoController.pedido.enderecoEntrega.estado}"
+                                 disabled="#{pedidoController.pedido.emitido}"
+                                 filter="true" filterMatchMode="startsWith"
+                                 required="true" requiredMessage="Escolha um Estado" converter="#{estadoConverter}">
+                    <f:selectItem itemLabel="Selecione"/>
+                    <f:selectItems value="#{estadosController.estados}" var="estado"
+                                   itemValue="#{estado}" itemLabel="#{estado.uf}"/>
+                    <p:ajax update="cidade" process="@this"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+
+            <h:panelGrid style="float: left;">
+                <p:outputLabel value="Cidade" for="cidade"/>
+                <p:selectOneMenu id="cidade" style="width: 100px" value="#{pedidoController.pedido.enderecoEntrega.cidade}"
+                                 disabled="#{pedidoController.pedido.emitido}"
+                                 filter="true" filterMatchMode="startsWith"
+                                 required="true" requiredMessage="Escolha uma Cidade" converter="#{cidadeConverter}">
+                    <f:selectItem itemLabel="Selecione"/>
+                    <f:selectItems value="#{pedidoController.pedido.enderecoEntrega.estado.cidades}" var="cidade"
+                                   itemValue="#{cidade}" itemLabel="#{cidade.nome}"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+
+            <h:panelGrid style="float: left">
+                <p:outputLabel value="Bairro" for="bairro"/>
+                <p:inputText id="bairro" size="15"  value="#{pedidoController.pedido.enderecoEntrega.bairro}" 
+                            converter="#{upperCaseConverter}" disabled="#{pedidoController.pedido.emitido}" required="true"/>
+            </h:panelGrid>
+        </h:panelGroup>
+    </h:panelGrid>
+</ui:composition>

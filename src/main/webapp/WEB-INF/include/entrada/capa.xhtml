@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:panelGrid id="painel" columns="4" style="margin-top: 10px; width: 100%" columnClasses="rotulo, campo, rotulo, campo">
+        <p:outputLabel value="Código"/>
+        <p:inputText value="#{entradaController.entrada.id}" disabled="true" size="10"/>
+
+        <p:outputLabel value="Data de Entrada: "/>
+        <p:outputLabel value="#{entradaController.entrada.dataEntrada}" style="font-weight: 900;" >
+            <f:convertDateTime pattern="dd/MM/yyyy"/>
+        </p:outputLabel>
+
+        <p:outputLabel value="Data de Emissão" for="tdEmissao"/>
+        <p:calendar id="tdEmissao" pattern="dd/MM/yyyy" locale="pt" value="#{entradaController.entrada.dataEmissao}" required="true" disabled="#{entradaController.entrada.naoEditavel}"/>
+
+        <p:outputLabel value="Fornecedor" for="fornecedor"/>
+        <p:selectOneMenu id="fornecedor" value="#{entradaController.entrada.fornecedor}" converter="#{fornecedorConverter}" disabled="#{entradaController.entrada.naoEditavel}"
+                         required="true">
+            <f:selectItem itemLabel="Selecione"/>
+            <f:selectItems value="#{entradaController.fornecedores}" var="fornecedor" itemLabel="#{fornecedor.nome}" itemValue="#{fornecedor}"/>
+        </p:selectOneMenu>
+
+        <p:outputLabel value="Documento Fiscal" for="docFiscal"/>
+        <p:selectOneMenu id="docFiscal" value="#{entradaController.entrada.documentoFiscal}" required="true" disabled="#{entradaController.entrada.naoEditavel}"
+                         >
+            <f:selectItem itemLabel="Selecione"/>
+            <f:selectItems value="#{entradaController.docFiscais}" var="docfiscal" itemLabel="#{docfiscal.descricao}" itemValue="#{docfiscal}"/>
+        </p:selectOneMenu>
+
+        <p:outputLabel value="Nº do Documento" for="documento"/>
+        <p:inputText id="documento" value="#{entradaController.entrada.numeroDocumento}" required="true" disabled="#{entradaController.entrada.naoEditavel}"/>
+
+        <p:outputLabel value="Nº Série" for="serie"/>
+        <p:inputText id="serie" value="#{entradaController.entrada.serie}" required="true" disabled="#{entradaController.entrada.naoEditavel}"/>
+
+        <h:panelGroup>
+            <p:panelGrid columns="2">
+                <p:outputLabel value="Subtotal" style="font-weight: bold" />
+                <h:outputText id="subtotal" value="#{entradaController.entrada.valorTotal}" style="font-weight: bold" >
+                    <f:convertNumber type="currency" />
+                </h:outputText>
+            </p:panelGrid>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <p:panelGrid columns="2">
+                <p:outputLabel value="Total da Nota" style="font-weight: bold; font-size: 1.1em"/>
+                <h:outputText style="font-weight: bold; font-size: 1.1em; color: red" id="totalNota" value="#{entradaController.entrada.valorTotal}">
+                    <f:convertNumber type="currency" />
+                </h:outputText>
+            </p:panelGrid>
+        </h:panelGroup>
+
+    </h:panelGrid>
+</ui:composition>

@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:panelGrid columns="6" id="item">
+        <h:panelGroup>
+            <p:watermark for="sku" value="Codigo"/>
+            <!--<p:inputText id="sku" style="width: 110px" value=""/>-->
+            <p:autoComplete id="sku" value="#{entradaController.item.produto}" converter="#{produtoConverter}"
+                            var="produto" itemLabel="#{produto.codigoDeBarras}" itemValue="#{produto}" maxResults="10"
+                            completeMethod="#{entradaController.buscaProdutoCodigo}" forceSelection="true"
+                            >
+                <p:ajax update="item" event="itemSelect"/>
+            </p:autoComplete>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <p:watermark for="produto" value="Produto"/>
+            <p:autoComplete id="produto" value="#{entradaController.item.produto}" converter="#{produtoConverter}"
+                            var="produto" itemLabel="#{produto.descricao}" itemValue="#{produto}" maxResults="10"
+                            completeMethod="#{entradaController.buscaProdutoDescricao}" forceSelection="true"
+                            size="75">
+                <p:ajax update="item" event="itemSelect"/>
+            </p:autoComplete>
+
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <p:watermark for="valorUnitario" value="Valor Unitário" />
+            <p:inputNumber id="valorUnitario" size="10" symbol="R$ " decimalSeparator=","
+                           value="#{entradaController.item.valorUnitario}" thousandSeparator="." decimalPlaces="2" required="true"
+                           requiredMessage="Por favor, informe o valor unitário do produto">
+            </p:inputNumber>
+        </h:panelGroup>
+
+        <p:spinner id="qtd" value="#{entradaController.item.quantidade}" required="true" min="1" size="5"/>
+
+        <p:commandButton style="margin-left: 5px" icon="fa fa-check" title="Adicionar" process="item" disabled="#{entradaController.entrada.naoEditavel}"
+                         update="item itens :formEntrada:totalNota :formEntrada:subtotal" action="#{entradaController.adicionarItem()}" />
+    </h:panelGrid>
+
+    <p:dataTable id="itens" paginatorAlwaysVisible="false" paginatorPosition="bottom" value="#{entradaController.entrada.itens}" 
+                 var="item" style="margin-top: 5px;" emptyMessage="Sem itens." paginator="true" rows="20">
+
+        <p:column style="width: 40px; text-align: center">
+            <p:commandButton icon="fa fa-trash" process="@this" action="#{entradaController.removerItem()}" disabled="#{entradaController.entrada.naoEditavel}"
+                             update="itens :formEntrada:totalNota :formEntrada:subtotal" >
+                <f:setPropertyActionListener target="#{entradaController.item}" value="#{item}"/>
+            </p:commandButton>
+        </p:column>
+        <p:column headerText="Código" style="width: 100px">
+            <h:outputText value="#{item.produto.id}"/>
+        </p:column>
+        <p:column headerText="Produto">
+            <h:outputText value="#{item.produto.descricao}"/>
+        </p:column>
+        <p:column headerText="Valor Unitário" style="width: 100px; text-align: right">
+            <h:outputText value="#{item.valorUnitario}">
+                <f:convertNumber type="currency"/>
+            </h:outputText>
+        </p:column>
+        <p:column headerText="Quantidade" style="width: 80px;" >
+            <p:spinner value="#{item.quantidade}" min="1" size="5" disabled="#{entradaController.entrada.naoEditavel}">
+                <p:ajax event="change" process="@this" listener="#{entradaController.entrada.recalcularTotalNota()}"
+                        update="itens :formEntrada:totalNota :formEntrada:subtotal" />
+            </p:spinner>
+        </p:column>
+
+        <p:column headerText="Total" style="width: 100px; text-align: right">
+            <h:outputText value="#{item.valorTotal}">
+                <f:convertNumber type="currency"/>
+            </h:outputText>
+        </p:column>
+
+        <p:columnGroup type="footer">
+            <p:row>
+                <p:column colspan="5" footerText="Subtotal" style="text-align: right; color: darkgreen" />
+                <p:column style="text-align: right; color: darkgreen">
+                    <f:facet name="footer">
+                        <h:outputText value="#{entradaController.entrada.valorTotal}">
+                            <f:convertNumber type="currency"/>
+                        </h:outputText>
+                    </f:facet>
+                </p:column>
+            </p:row>
+        </p:columnGroup>
+    </p:dataTable>
+</ui:composition>
