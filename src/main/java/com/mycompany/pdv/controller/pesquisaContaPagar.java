@@ -8,7 +8,7 @@ package com.mycompany.pdv.controller;
 import com.mycompany.pdv.modelo.ContaPagar;
 import com.mycompany.pdv.modelo.Fornecedor;
 import com.mycompany.pdv.repositorio.ContaPagarFacade;
-import com.mycompany.pdv.util.jsf.JsfUtil;
+import com.mycompany.pdv.util.jsf.util.JsfUtil;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;

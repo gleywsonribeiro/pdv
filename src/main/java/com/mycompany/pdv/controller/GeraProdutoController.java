@@ -12,7 +12,7 @@ import com.mycompany.pdv.modelo.Unidade;
 import com.mycompany.pdv.repositorio.CategoriaFacade;
 import com.mycompany.pdv.repositorio.ProdutoFacade;
 import com.mycompany.pdv.repositorio.UnidadeFacade;
-import com.mycompany.pdv.util.jsf.JsfUtil;
+import com.mycompany.pdv.util.jsf.util.JsfUtil;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.inject.Named;

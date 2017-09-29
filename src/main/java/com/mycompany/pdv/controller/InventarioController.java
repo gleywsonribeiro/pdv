@@ -11,7 +11,7 @@ import com.mycompany.pdv.modelo.Produto;
 import com.mycompany.pdv.modelo.Usuario;
 import com.mycompany.pdv.repositorio.InventarioFacade;
 import com.mycompany.pdv.repositorio.ProdutoFacade;
-import com.mycompany.pdv.util.jsf.JsfUtil;
+import com.mycompany.pdv.util.jsf.util.JsfUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

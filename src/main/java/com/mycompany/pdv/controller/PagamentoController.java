@@ -7,7 +7,7 @@ package com.mycompany.pdv.controller;
 
 import com.mycompany.pdv.modelo.Pagamento;
 import com.mycompany.pdv.repositorio.PagamentoFacade;
-import com.mycompany.pdv.util.jsf.JsfUtil;
+import com.mycompany.pdv.util.jsf.util.JsfUtil;
 import java.io.Serializable;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;

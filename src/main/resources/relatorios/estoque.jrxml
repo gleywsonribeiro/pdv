@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="estoque" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="98cedc63-3505-47cd-b684-d2d5e53144ee">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+    p.ID, p.DESCRICAO, p.estoque_atual, p.vl_custo, p.vl_venda
+FROM
+    produto p
+WHERE p.estoque_atual > 0]]>
+	</queryString>
+	<field name="ID" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DESCRICAO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estoque_atual" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="vl_custo" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="vl_venda" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="199" y="23" width="170" height="35" forecolor="#996600" uuid="7200b7a4-0e9a-4994-8a60-e1f68e6d77e6"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ficha de Estoque]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="42" height="20" forecolor="#009933" uuid="8ef67322-592b-4357-97fd-5ccdb09cc20a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="42" y="0" width="180" height="20" forecolor="#009933" uuid="b30ed87c-b09c-4e38-a1d8-9c4b71072d11"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descrição]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="0" width="111" height="20" forecolor="#009933" uuid="4f3ef878-7068-4e11-84a8-a09ace990509"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estoque Atual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="0" width="111" height="20" forecolor="#009933" uuid="6bc2e6fc-872d-4e74-8d24-3e1411984294"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor de Custo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="0" width="111" height="20" forecolor="#009933" uuid="4ff5a8bb-3caf-43e7-aa7e-d3b5814df3a4"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor de Venda]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="42" height="20" uuid="08a334db-5afe-4a37-b4d4-86421e23a6cd"/>
+				<textFieldExpression><![CDATA[$F{ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="42" y="0" width="180" height="20" uuid="9dafa255-a064-45cf-81d0-49947fa378d5"/>
+				<textFieldExpression><![CDATA[$F{DESCRICAO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="222" y="0" width="111" height="20" uuid="8656de20-f6fa-46ff-a8ac-9710746a6f54"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{estoque_atual}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="333" y="0" width="111" height="20" uuid="5dde507a-51e5-469d-8138-645e4509c333"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{vl_custo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="0" width="111" height="20" uuid="8929f21b-7511-47a5-a332-3290c49903c1"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{vl_venda}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

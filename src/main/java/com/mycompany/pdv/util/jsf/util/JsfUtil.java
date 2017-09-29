@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pdv.util.jsf;
+package com.mycompany.pdv.util.jsf.util;
 
 import java.io.IOException;
 import javax.faces.FacesException;

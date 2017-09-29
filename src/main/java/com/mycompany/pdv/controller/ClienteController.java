@@ -9,7 +9,7 @@ import com.mycompany.pdv.modelo.Cliente;
 import com.mycompany.pdv.modelo.TipoPessoa;
 import com.mycompany.pdv.repositorio.ClienteFacade;
 import com.mycompany.pdv.repositorio.filter.ClienteFilter;
-import com.mycompany.pdv.util.jsf.JsfUtil;
+import com.mycompany.pdv.util.jsf.util.JsfUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

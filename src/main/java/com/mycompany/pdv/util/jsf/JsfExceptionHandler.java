@@ -5,7 +5,8 @@
  */
 package com.mycompany.pdv.util.jsf;
 
-import com.mycompany.pdv.service.NegocioException;
+import com.mycompany.pdv.util.jsf.util.JsfUtil;
+import com.mycompany.pdv.service.exception.NegocioException;
 import java.util.Iterator;
 import javax.faces.FacesException;
 import javax.faces.application.ViewExpiredException;

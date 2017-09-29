@@ -7,7 +7,7 @@ package com.mycompany.pdv.controller;
 
 import com.mycompany.pdv.modelo.Grupo;
 import com.mycompany.pdv.repositorio.GrupoFacade;
-import com.mycompany.pdv.util.jsf.JsfUtil;
+import com.mycompany.pdv.util.jsf.util.JsfUtil;
 import java.io.Serializable;
 import java.util.List;
 import javax.inject.Named;

@@ -7,7 +7,7 @@ package com.mycompany.pdv.controller;
 
 import com.mycompany.pdv.modelo.Usuario;
 import com.mycompany.pdv.repositorio.UsuarioFacade;
-import com.mycompany.pdv.util.jsf.JsfUtil;
+import com.mycompany.pdv.util.jsf.util.JsfUtil;
 import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
