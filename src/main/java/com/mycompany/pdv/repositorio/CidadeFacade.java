@@ -29,4 +29,7 @@ public class CidadeFacade extends AbstractFacade<Cidade> {
         super(Cidade.class);
     }
     
+    public EntityManager getEntityManagerCurrent() {
+        return em;
+    }
 }

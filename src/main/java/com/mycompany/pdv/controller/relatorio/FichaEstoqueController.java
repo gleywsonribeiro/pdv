@@ -5,6 +5,7 @@
  */
 package com.mycompany.pdv.controller.relatorio;
 
+import com.mycompany.pdv.repositorio.CidadeFacade;
 import com.mycompany.pdv.service.report.ExecutorRelatorio;
 import com.mycompany.pdv.util.jsf.util.JsfUtil;
 import java.sql.Connection;
@@ -16,6 +17,7 @@ import java.util.logging.Logger;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletResponse;
@@ -32,9 +34,10 @@ public class FichaEstoqueController {
 
     private HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
 
-    @PersistenceContext(unitName = "pdvPU")
-    private EntityManager manager;
-    
+//    @PersistenceContext(unitName = "pdvPU")
+//    private EntityManager manager;
+    @Inject
+    private CidadeFacade repositorio;
 
     public void emitir() {
         try {
@@ -43,8 +46,8 @@ public class FichaEstoqueController {
             ExecutorRelatorio executor = new ExecutorRelatorio("/relatorios/estoque.jasper",
                     this.response, parametros, "ficha_de_estoque.xls");
             
-            Connection connection = manager.unwrap(Connection.class);
-            
+            Connection connection = repositorio.getEntityManagerCurrent().unwrap(Connection.class);
+            System.out.println(connection == null?"Esta nula":"esta ok");
             executor.executeToPdf(connection);
 
             if (executor.isRelatorioGerado()) {
