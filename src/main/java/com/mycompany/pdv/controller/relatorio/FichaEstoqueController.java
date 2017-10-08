@@ -14,13 +14,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Resource;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 /**
  *
@@ -36,8 +40,8 @@ public class FichaEstoqueController {
 
 //    @PersistenceContext(unitName = "pdvPU")
 //    private EntityManager manager;
-    @Inject
-    private CidadeFacade repositorio;
+    //@Resource(mappedName = "java:app/pdv")
+    private DataSource source;
 
     public void emitir() {
         try {
@@ -45,8 +49,11 @@ public class FichaEstoqueController {
 
             ExecutorRelatorio executor = new ExecutorRelatorio("/relatorios/estoque.jasper",
                     this.response, parametros, "ficha_de_estoque.xls");
+            InitialContext context = new InitialContext();
             
-            Connection connection = repositorio.getEntityManagerCurrent().unwrap(Connection.class);
+            source = (DataSource) context.lookup("java:app/pdv");
+            
+            Connection connection = source.getConnection();
             System.out.println(connection == null?"Esta nula":"esta ok");
             executor.executeToPdf(connection);
 
@@ -57,6 +64,8 @@ public class FichaEstoqueController {
             }
             
         } catch (SQLException ex) {
+            Logger.getLogger(FichaEstoqueController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NamingException ex) {
             Logger.getLogger(FichaEstoqueController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
